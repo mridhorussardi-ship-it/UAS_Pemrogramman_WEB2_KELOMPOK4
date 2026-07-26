@@ -1,0 +1,258 @@
+/* ================================================================
+   SNOWUI INSPIRED DESIGN SYSTEM
+   Clean, Professional, Consistent
+   ================================================================ */
+
+/* ----- FONTS ----- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+
+/* ----- DESIGN TOKENS ----- */
+:root {
+    /* Color Palette - Professional & Calm */
+    --snow-primary: #4F46E5;
+    --snow-primary-light: #818CF8;
+    --snow-primary-dark: #3730A3;
+    --snow-primary-bg: #EEF2FF;
+
+    --snow-secondary: #64748B;
+    --snow-secondary-light: #94A3B8;
+    --snow-secondary-dark: #475569;
+
+    --snow-success: #10B981;
+    --snow-warning: #F59E0B;
+    --snow-danger: #EF4444;
+    --snow-info: #3B82F6;
+
+    --snow-bg-page: #F8FAFC;
+    --snow-bg-card: #FFFFFF;
+    --snow-bg-input: #F1F5F9;
+
+    --snow-text-primary: #0F172A;
+    --snow-text-secondary: #475569;
+    --snow-text-muted: #94A3B8;
+
+    --snow-border: #E2E8F0;
+    --snow-border-light: #F1F5F9;
+
+    /* Spacing */
+    --snow-space-1: 4px;
+    --snow-space-2: 8px;
+    --snow-space-3: 12px;
+    --snow-space-4: 16px;
+    --snow-space-5: 20px;
+    --snow-space-6: 24px;
+    --snow-space-8: 32px;
+    --snow-space-10: 40px;
+    --snow-space-12: 48px;
+
+    /* Corner Radius */
+    --snow-radius-sm: 4px;
+    --snow-radius-md: 6px;
+    --snow-radius-lg: 8px;
+    --snow-radius-xl: 12px;
+    --snow-radius-full: 9999px;
+
+    /* Shadows */
+    --snow-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --snow-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --snow-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --snow-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --snow-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+    --snow-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----- GLOBAL RESET & BASE ----- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--snow-bg-page);
+    color: var(--snow-text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ----- TYPOGRAPHY ----- */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--snow-text-primary);
+}
+h1 { font-size: 2.25rem; line-height: 1.2; }
+h2 { font-size: 1.875rem; line-height: 1.2; }
+h3 { font-size: 1.5rem; line-height: 1.3; }
+h4 { font-size: 1.25rem; line-height: 1.4; }
+
+a { color: var(--snow-primary); text-decoration: none; }
+a:hover { color: var(--snow-primary-dark); }
+
+/* ----- SNOWUI CARD ----- */
+.snow-card {
+    background: var(--snow-bg-card);
+    border-radius: var(--snow-radius-lg);
+    border: 1px solid var(--snow-border);
+    box-shadow: var(--snow-shadow-sm);
+    transition: var(--snow-transition);
+    overflow: hidden;
+}
+
+.snow-card:hover {
+    box-shadow: var(--snow-shadow-md);
+}
+
+.snow-card-header {
+    padding: var(--snow-space-4) var(--snow-space-6);
+    border-bottom: 1px solid var(--snow-border-light);
+    background-color: var(--snow-bg-page);
+}
+
+.snow-card-body {
+    padding: var(--snow-space-6);
+}
+
+/* ----- SNOWUI BUTTON ----- */
+.snow-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--snow-space-2);
+    padding: var(--snow-space-2) var(--snow-space-5);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: var(--snow-radius-md);
+    border: 1px solid transparent;
+    transition: var(--snow-transition);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.snow-btn-primary {
+    background: var(--snow-primary);
+    color: white;
+    border-color: var(--snow-primary);
+}
+.snow-btn-primary:hover { background: var(--snow-primary-dark); border-color: var(--snow-primary-dark); color: white; }
+
+.snow-btn-outline {
+    background: transparent;
+    color: var(--snow-secondary);
+    border-color: var(--snow-border);
+}
+.snow-btn-outline:hover { background: var(--snow-bg-page); border-color: var(--snow-secondary); color: var(--snow-text-primary); }
+
+.snow-btn-ghost {
+    background: transparent;
+    color: var(--snow-secondary);
+    border-color: transparent;
+}
+.snow-btn-ghost:hover { background: var(--snow-bg-input); color: var(--snow-text-primary); }
+
+.snow-btn-success { background: var(--snow-success); color: white; border-color: var(--snow-success); }
+.snow-btn-success:hover { background: #059669; border-color: #059669; color: white; }
+
+.snow-btn-danger { background: var(--snow-danger); color: white; border-color: var(--snow-danger); }
+.snow-btn-danger:hover { background: #DC2626; border-color: #DC2626; color: white; }
+
+.snow-btn-sm { padding: var(--snow-space-1) var(--snow-space-3); font-size: 0.75rem; }
+.snow-btn-lg { padding: var(--snow-space-3) var(--snow-space-6); font-size: 1rem; }
+
+/* ----- SNOWUI INPUT ----- */
+.snow-input {
+    display: block;
+    width: 100%;
+    padding: var(--snow-space-2) var(--snow-space-3);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--snow-text-primary);
+    background: var(--snow-bg-input);
+    background-clip: padding-box;
+    border: 1px solid var(--snow-border);
+    border-radius: var(--snow-radius-md);
+    transition: var(--snow-transition);
+}
+
+.snow-input:focus {
+    outline: none;
+    border-color: var(--snow-primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    background: var(--snow-bg-card);
+}
+
+.snow-input::placeholder { color: var(--snow-text-muted); }
+
+/* ----- SNOWUI BADGE ----- */
+.snow-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--snow-space-1) var(--snow-space-3);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: var(--snow-radius-full);
+    border: 1px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.snow-badge-pending { background: #FEF3C7; color: #92400E; border-color: #FDE68A; }
+.snow-badge-diproses { background: #DBEAFE; color: #1E3A8A; border-color: #93C5FD; }
+.snow-badge-selesai { background: #D1FAE5; color: #065F46; border-color: #6EE7B7; }
+.snow-badge-ditolak { background: #FEE2E2; color: #991B1B; border-color: #FCA5A5; }
+.snow-badge-role-admin { background: #FCE7F3; color: #831843; border-color: #F9A8D4; }
+.snow-badge-role-dosen { background: #E0E7FF; color: #3730A3; border-color: #A5B4FC; }
+.snow-badge-role-mahasiswa { background: #D1FAE5; color: #065F46; border-color: #6EE7B7; }
+
+/* ----- SNOWUI TABLE ----- */
+.snow-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.snow-table th {
+    padding: var(--snow-space-3) var(--snow-space-4);
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--snow-text-secondary);
+    background: var(--snow-bg-page);
+    border-bottom: 1px solid var(--snow-border);
+}
+.snow-table td {
+    padding: var(--snow-space-3) var(--snow-space-4);
+    border-bottom: 1px solid var(--snow-border-light);
+    color: var(--snow-text-secondary);
+    vertical-align: middle;
+}
+.snow-table tbody tr { transition: var(--snow-transition); }
+.snow-table tbody tr:hover { background: var(--snow-primary-bg); }
+
+/* ----- SNOWUI STAT CARD ----- */
+.snow-stat {
+    background: var(--snow-bg-card);
+    border-radius: var(--snow-radius-lg);
+    border: 1px solid var(--snow-border);
+    padding: var(--snow-space-5) var(--snow-space-6);
+    box-shadow: var(--snow-shadow-sm);
+    transition: var(--snow-transition);
+}
+.snow-stat:hover { box-shadow: var(--snow-shadow-md); }
+.snow-stat-number { font-size: 1.875rem; font-weight: 700; color: var(--snow-text-primary); line-height: 1.2; }
+.snow-stat-label { font-size: 0.875rem; font-weight: 500; color: var(--snow-text-secondary); margin-top: var(--snow-space-1); }
+.snow-stat-icon { color: var(--snow-text-muted); opacity: 0.5; }
+
+/* ----- ANIMATIONS ----- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.snow-animate-in { animation: fadeInUp 0.3s ease forwards; }
+.snow-delay-1 { animation-delay: 0.05s; }
+.snow-delay-2 { animation-delay: 0.1s; }
+.snow-delay-3 { animation-delay: 0.15s; }
+.snow-delay-4 { animation-delay: 0.2s; }
+.snow-delay-5 { animation-delay: 0.25s; }
