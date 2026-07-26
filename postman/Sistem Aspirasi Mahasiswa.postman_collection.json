@@ -1,0 +1,195 @@
+{
+  "info": {
+    "_postman_id": "8e389ae8-0bdf-4b83-84fb-aspirasi-uas",
+    "name": "Sistem Aspirasi Mahasiswa API",
+    "description": "Collection API CodeIgniter 4. Jalankan Login dulu; token disimpan otomatis.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8080" },
+    { "key": "token", "value": "" },
+    { "key": "aspirasi_id", "value": "6" }
+  ],
+  "item": [
+    {
+      "name": "1. Auth",
+      "item": [
+        {
+          "name": "Login — jalankan pertama",
+          "auth": { "type": "noauth" },
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "email", "value": "andi@student.ac.id", "type": "text" },
+                { "key": "password", "value": "mahasiswa123", "type": "text" }
+              ]
+            },
+            "url": "{{base_url}}/api/auth/login",
+            "description": "Login akun mahasiswa. Token otomatis masuk ke collection variable token."
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                "const body = pm.response.json();",
+                "pm.expect(body.status).to.eql(true);",
+                "pm.collectionVariables.set('token', body.token);"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "Register",
+          "auth": { "type": "noauth" },
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "role", "value": "mahasiswa", "type": "text" },
+                { "key": "nim", "value": "26{{$timestamp}}", "type": "text" },
+                { "key": "nama", "value": "Mahasiswa Postman", "type": "text" },
+                { "key": "email", "value": "postman{{$timestamp}}@student.ac.id", "type": "text" },
+                { "key": "password", "value": "postman123", "type": "text" },
+                { "key": "prodi", "value": "Sistem Informasi", "type": "text" }
+              ]
+            },
+            "url": "{{base_url}}/api/auth/register",
+            "description": "NIM dan email memakai timestamp agar selalu unik saat request dijalankan ulang."
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('HTTP 201', () => pm.response.to.have.status(201));",
+                "pm.expect(pm.response.json().status).to.eql(true);"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "Profil Login (Me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": "{{base_url}}/api/auth/me"
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": "{{base_url}}/api/auth/logout",
+            "description": "JWT tetap aktif sampai kedaluwarsa; endpoint ini hanya mengembalikan konfirmasi."
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Kategori",
+      "item": [
+        {
+          "name": "Daftar Kategori",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": "{{base_url}}/api/kategori"
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Aspirasi",
+      "item": [
+        {
+          "name": "Daftar Aspirasi",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": "{{base_url}}/api/aspirasi"
+          }
+        },
+        {
+          "name": "Detail Aspirasi",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": "{{base_url}}/api/aspirasi/{{aspirasi_id}}"
+          }
+        },
+        {
+          "name": "Tambah Aspirasi",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "judul", "value": "Perbaikan Fasilitas Laboratorium", "type": "text" },
+                { "key": "isi", "value": "Mohon perbaikan komputer laboratorium yang sudah tidak berfungsi.", "type": "text" },
+                { "key": "kategori_id", "value": "2", "type": "text" },
+                { "key": "is_anonymous", "value": "0", "type": "text" }
+              ]
+            },
+            "url": "{{base_url}}/api/aspirasi"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('HTTP 201', () => pm.response.to.have.status(201));",
+                "const body = pm.response.json();",
+                "if (body.id) pm.collectionVariables.set('aspirasi_id', String(body.id));"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "Ubah Aspirasi",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"judul\": \"Perbaikan Fasilitas Laboratorium — Revisi\",\n  \"isi\": \"Mohon perbaikan komputer laboratorium yang rusak secepatnya.\",\n  \"kategori_id\": 2,\n  \"is_anonymous\": 0\n}"
+            },
+            "url": "{{base_url}}/api/aspirasi/{{aspirasi_id}}"
+          }
+        },
+        {
+          "name": "Tambah Komentar",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [{ "key": "isi_komentar", "value": "Aspirasi ini perlu segera ditindaklanjuti.", "type": "text" }]
+            },
+            "url": "{{base_url}}/api/aspirasi/{{aspirasi_id}}/komentar"
+          }
+        },
+        {
+          "name": "Hapus Aspirasi — jalankan terakhir",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": "{{base_url}}/api/aspirasi/{{aspirasi_id}}"
+          }
+        }
+      ]
+    }
+  ]
+}
